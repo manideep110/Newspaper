@@ -1,0 +1,43 @@
+import java.util.*;  
+
+public class Main
+{
+	public static void main(String[] args) {
+		Map dayMap = new HashMap();  
+		
+		// updated with initial values
+		dayMap.put(Calendar.MONDAY, 0);
+		dayMap.put(Calendar.TUESDAY, 0);
+		dayMap.put(Calendar.WEDNESDAY, 0);
+		dayMap.put(Calendar.THURSDAY, 0);
+		dayMap.put(Calendar.FRIDAY, 0);
+		dayMap.put(Calendar.SATURDAY, 0);
+		dayMap.put(Calendar.SUNDAY, 0);
+        
+        dayMap = findCountOfDays(dayMap);
+        
+       
+        
+        System.out.println(dayMap);
+	}
+	
+	public static Map findCountOfDays(Map dayMap) {
+	   
+        // create instance for calendar
+		Calendar calendar = Calendar.getInstance();
+		
+		int month = calendar.get(calendar.MONTH);
+		int year  = calendar.get(calendar.YEAR);
+
+        calendar.set(year, month, 1);
+        
+        int daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        
+        for (int day = 1; day <= daysInMonth; day++) {
+            calendar.set(year, month, day);
+            int newVal = (int) dayMap.get(calendar.get(Calendar.DAY_OF_WEEK)) + 1;
+            dayMap.put(calendar.get(Calendar.DAY_OF_WEEK), newVal);
+        }
+        return dayMap;
+	}
+}
